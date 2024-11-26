@@ -1,8 +1,7 @@
 import { Botao } from "./components/Botao";
 import { useState } from "react";
+import { verificarVencedor, Grid } from "./regrasVencedor";
 import styles from "./App.module.css";
-
-type Grid = string[][];
 
 export default function App() {
   const [ehRodadaX, setEhRodadaX] = useState(true);
@@ -25,40 +24,6 @@ export default function App() {
     setEhRodadaX(!ehRodadaX);
   }
 
-  function vencerPartida() {
-    // Verificar linhas iguais
-    for (let i = 0; i < 3; i++) {
-      if (tabuleiro.every((linha) => linha[i] == "X"))
-        return "Vitória do X! 🏆";
-      if (tabuleiro.every((linha) => linha[i] == "O"))
-        return "Vitória do O! 🏆";
-    }
-
-    // Verificar colunas iguais
-    for (const linha of tabuleiro) {
-      if (linha.every((coluna) => coluna == "X")) return "Vitória do X! 🏆";
-      if (linha.every((coluna) => coluna == "O")) return "Vitória do O! 🏆";
-    }
-
-    // Verificar diagonais
-    if (tabuleiro[1][1] !== "") {
-      if (
-        (tabuleiro[0][0] === tabuleiro[1][1] &&
-          tabuleiro[1][1] === tabuleiro[2][2]) ||
-        (tabuleiro[0][2] === tabuleiro[1][1] &&
-          tabuleiro[1][1] === tabuleiro[2][0])
-      ) {
-        return `Vitória do ${tabuleiro[1][1]} 🏆!`;
-      }
-    }
-
-    // Verificar velha
-
-    if (tabuleiro.every((linha) => linha.every((coluna) => coluna != ""))) {
-      return "Velha!";
-    }
-  }
-
   return (
     <div className={styles.container}>
       <h1>Jogo da Velha</h1>
@@ -74,7 +39,7 @@ export default function App() {
           ))
         )}
       </div>
-      <p>{vencerPartida()}</p>
+      <p>{verificarVencedor(tabuleiro)}</p>
     </div>
   );
 }
