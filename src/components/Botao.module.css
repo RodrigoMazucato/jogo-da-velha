@@ -1,0 +1,12 @@
+.botao {
+  height: 6rem;
+  width: 6rem;
+  border: transparent;
+  cursor: pointer;
+  font-size: 1.5rem;
+  background-color: white;
+}
+
+.botao:hover {
+  background-color: aquamarine;
+}
